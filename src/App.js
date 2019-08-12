@@ -13,13 +13,16 @@ class App extends React.Component {
     return (<BrowserRouter>
       <Switch>
         <Route path='/login' excat component={Login}></Route>
-        {!this.props.currentUser ? <Redirect
-          to={{ pathname: "/login", state: { from: this.props.location } }} >
-        </Redirect> :
-          <Route
-            path="/"
-            component={Home}>
-          </Route>}
+        <Route render={({ history , location,...props}) => {
+          console.log(history, props);
+          return !this.props.currentUser ? <Redirect
+            to={{ pathname: "/login", state: { from: location } }} >
+          </Redirect> :
+            <Route
+              path="/"
+              component={Home}>
+            </Route>
+        }}></Route>
       </Switch>
     </BrowserRouter >)
   }
