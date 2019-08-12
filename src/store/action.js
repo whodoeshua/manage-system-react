@@ -4,7 +4,9 @@ let currentUserAction = createActions({
     CURRENT_USER: {
         LOGIN: () => {
             return {
-                account: "fakeAccount"
+                currentUser: {
+                    account: "fakeAccount"
+                }
             }
         },
         LOGOUT: payload => payload

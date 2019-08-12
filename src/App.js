@@ -6,22 +6,18 @@ import Home from './pages/home/home';
 import Login from './pages/login/login';
 
 class App extends React.Component {
-  componentDidMount() {
-    console.log(this.props)
-  }
   render() {
     return (<BrowserRouter>
       <Switch>
-        <Route path='/login' excat component={Login}></Route>
-        <Route render={({ history , location,...props}) => {
-          console.log(history, props);
+        <Route path='/login' excat render={({ history, location, ...props }) => {
+          return !this.props.currentUser ? <Login {...props}></Login> : <Redirect
+            to={(location.state && location.state.from) || "/"}></Redirect>
+        }}></Route>
+        <Route render={({ history, location, ...props }) => {
           return !this.props.currentUser ? <Redirect
             to={{ pathname: "/login", state: { from: location } }} >
           </Redirect> :
-            <Route
-              path="/"
-              component={Home}>
-            </Route>
+            <Home />
         }}></Route>
       </Switch>
     </BrowserRouter >)
